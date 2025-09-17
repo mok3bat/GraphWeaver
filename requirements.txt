@@ -1,0 +1,8 @@
+neo4j>=5.19.0
+langchain>=0.3.0
+langchain-openai>=0.1.8
+langchain-community>=0.3.0
+openai>=1.46.0
+tiktoken>=0.7.0
+graphql-core>=3.2.3
+gradio

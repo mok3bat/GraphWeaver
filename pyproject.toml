@@ -1,0 +1,16 @@
+[project]
+name = "graphweaver"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "gradio>=5.45.0",
+    "graphql-core>=3.2.3",
+    "langchain>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-openai>=0.1.8",
+    "neo4j>=5.19.0",
+    "openai>=1.46.0",
+    "tiktoken>=0.7.0",
+]
