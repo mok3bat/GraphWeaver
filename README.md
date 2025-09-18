@@ -66,7 +66,7 @@ flowchart TD
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/graphweaver.git
+git clone https://github.com/mok3bat/GraphWeaver.git
 cd graphweaver
 ```
 
@@ -111,23 +111,101 @@ App will be available at: 👉 [http://localhost:7860](http://localhost:7860)
 
 ## 🐳 Setup (Docker)
 
-### 1. Build the container
+## 1. Prerequisites
 
+Before running **GraphWeaver**, you’ll need:
+
+* **Neo4j Database**
+
+  * Either:
+
+    * Sign up for a free **Neo4j AuraDB Sandbox**: [https://neo4j.com/cloud/platform/aura-graph-database/](https://neo4j.com/cloud/platform/aura-graph-database/)
+    * Or run your own Neo4j instance locally.
+  * Capture your connection details: `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD`.
+
+* **OpenAI-Compatible LLM Endpoint**
+
+  * You can use:
+
+    * **OpenAI** directly (`https://api.openai.com/v1`)
+    * Or any **OpenAI-compatible provider** such as:
+
+      * **Ollama** (local models, e.g. `http://localhost:11434/v1`)
+      * **LiteLLM** proxy
+      * **Other hosted OpenAI-compatible APIs**
+
+  * Capture your details: `LLM_BASE_URL`, `LLM_API_KEY`, and `LLM_MODEL`.
+
+---
+
+## 2. Environment Setup
+
+Create a `.env` file in the project root:
+
+```ini
+# -------------------------
+# Neo4j Connection
+# -------------------------
+NEO4J_URI=bolt://<your-neo4j-host>:7687
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=<your-password>
+
+# -------------------------
+# LLM Provider (OpenAI API or compatible)
+# -------------------------
+LLM_API_KEY=<your-key-or-placeholder>
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=gpt-4o-mini
+
+# -------------------------
+# Optional: Model Settings
+# -------------------------
+LLM_TEMPERATURE=0
+```
+
+ℹ️ **Tip:**
+
+* For **Neo4j Aura Sandbox**, copy the Bolt URI + credentials from the dashboard.
+* For **Ollama**, you can set:
+
+  ```ini
+  LLM_BASE_URL=http://host.docker.internal:11434/v1
+  LLM_API_KEY=ollama
+  LLM_MODEL=mistral
+  ```
+
+---
+
+## 3. Run with Docker
+
+Build and start the app container:
 ```bash
 docker build -t graphweaver .
 ```
 
-### 2. Run with environment file
-
 ```bash
 docker run -it --rm -p 7860:7860 --env-file .env graphweaver
 ```
-
-Or with **docker-compose**:
-
+or using docker compose 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
+
+This will:
+
+* Start **GraphWeaver** (Gradio app at `http://localhost:7860`)
+* Connect to your external Neo4j instance (local or AuraDB sandbox).
+* Use your configured LLM endpoint to generate queries.
+
+---
+
+## 4. Verify
+
+Open your browser at:
+
+👉 [http://localhost:7860](http://localhost:7860)
+
+Enter a natural language request (e.g., *“List all workbooks by name”*) and check the generated GraphQL query.
 
 ---
 
