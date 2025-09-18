@@ -2,10 +2,12 @@ version: "3.9"
 
 services:
   graphweaver:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: graphweaver
     ports:
-      - "7860:7860"
+      - "7860:7860"   # Gradio app
     env_file:
       - .env
     volumes:
